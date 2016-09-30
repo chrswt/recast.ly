@@ -6,10 +6,14 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "start": "npm run babel & live-server &",
+    "babel": "babel --watch . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline",
     "test": "live-server --open=./SpecRunner.html --port=8081",
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash"
   },
   "dependencies": {
+    "babel-core": "^6.16.0",
+    "babel-watch": "^2.0.3-rc0",
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
     "lodash": "^4.6.1",

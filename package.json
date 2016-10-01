@@ -16,6 +16,7 @@
     "babel-watch": "^2.0.3-rc0",
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
+    "live-server": "^1.1.0",
     "lodash": "^4.6.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"

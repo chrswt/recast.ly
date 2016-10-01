@@ -9,6 +9,9 @@ var VideoPlayer = (props) => (
     <div className="video-player-details">
       <h3>{props.video.snippet.title}</h3>
       <div>{props.video.snippet.description}</div>
+      <div>View Count: {props.stats.viewCount}</div>
+      <div>Like Count: {props.stats.likeCount}</div>
+      <div>Dislike Count: {props.stats.dislikeCount}</div>
     </div>
   </div>
 );

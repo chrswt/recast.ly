@@ -6,6 +6,17 @@ class App extends React.Component {
       this.props.searchYouTube({
         query: event.target.value
       }, (dataItems) => {
+        this.props.searchStatistics({
+          videoId: dataItems[0].id.videoId
+        }, (videoStat) => {
+          this.setState({
+            stats: {
+              viewCount: videoStat.viewCount,
+              likeCount: videoStat.likeCount,
+              dislikeCount: videoStat.dislikeCount
+            }
+          });
+        });
         this.setState({
           video: dataItems[0],
           results: dataItems
@@ -47,25 +58,53 @@ class App extends React.Component {
           liveBroadcastContent: ''
         }
       },
-      results: []
+      results: [],
+      stats: {
+        viewCount: 0,
+        likeCount: 0,
+        dislikeCount: 0
+      }
     };
   }
 
   onVideoClick(i, data) {
     this.setState({video: data[i]});
+    this.props.searchStatistics({
+      videoId: data[i].id.videoId
+    }, (videoStat) => {
+      this.setState({
+        stats: {
+          viewCount: videoStat.viewCount,
+          likeCount: videoStat.likeCount,
+          dislikeCount: videoStat.dislikeCount
+        }
+      });
+    });
   }
 
   componentDidMount() {
     this.props.searchYouTube({
-      query: 'thats absurd',
+      query: 'yes',
       key: window.YOUTUBE_API_KEY
     }, (dataItems) => {
+      this.props.searchStatistics({
+        videoId: dataItems[0].id.videoId
+      }, (videoStat) => {
+        this.setState({
+          stats: {
+            viewCount: videoStat.viewCount,
+            likeCount: videoStat.likeCount,
+            dislikeCount: videoStat.dislikeCount
+          }
+        });
+      });
       this.setState({
         video: dataItems[0],
         results: dataItems
       });
     });
   }
+
 
   changeHandler(event) {
     event.persist();
@@ -77,7 +116,7 @@ class App extends React.Component {
       <div>
         <Nav debouncedSearch={this.changeHandler.bind(this)}/>        
         <div className="col-md-7">
-          <VideoPlayer video={this.state.video} />
+          <VideoPlayer video={this.state.video} stats={this.state.stats} />
         </div>
         <div className="col-md-5">
           <VideoList videos={this.state.results} onVideoClick={this.onVideoClick.bind(this)}/>

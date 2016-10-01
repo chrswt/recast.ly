@@ -1,12 +1,42 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // debugger;
-    console.log(props);
-    // console.log(props.searchYouTube({query: 'wedidit', max: 10, key: window.YOUTUBE_API_KEY}, function() { console.log('success'); } ));
-    this.state = {
-      video: exampleVideoData[0],
-      results: exampleVideoData
+
+    this.state = { // placeholder for current video state
+      video: {
+        kind: '',
+        etag: '',
+        id: {
+          kind: '',
+          videoId: ''
+        },
+        snippet: {
+          publishedAt: '',
+          channelId: '',
+          title: '',
+          description: '',
+          thumbnails: {
+            default: {
+              url: '',
+              width: '',
+              height: ''
+            },
+            medium: {
+              url: '',
+              width: '',
+              height: ''
+            },
+            high: {
+              url: '',
+              width: '',
+              height: ''
+            }
+          },
+          channelTitle: '',
+          liveBroadcastContent: ''
+        }
+      },
+      results: []
     };
   }
 
@@ -15,24 +45,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.searchYouTube({query: 'wedidit', max: 10, key: window.YOUTUBE_API_KEY},
-      (dataItems) => {
-        this.setState({
-          video: dataItems[0],
-          results: dataItems
-        });
+    this.props.searchYouTube({
+      query: 'thats absurd',
+      key: window.YOUTUBE_API_KEY
+    }, (dataItems) => {
+      console.log(dataItems);
+      this.setState({
+        video: dataItems[0],
+        results: dataItems
       });
-    // console.log(results);
-    // this.setState({
+    });
+
   }
-
-
 
   render() {
     return (
       <div>
-        <Nav />
-        
+        <Nav />        
         <div className="col-md-7">
           <VideoPlayer video={this.state.video} />
         </div>

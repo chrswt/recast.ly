@@ -2,6 +2,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.delayedCallback = _.debounce((event) => {
+      this.props.searchYouTube({
+        query: event.target.value
+      }, (dataItems) => {
+        this.setState({
+          video: dataItems[0],
+          results: dataItems
+        });
+      });
+    }, 500);
+
     this.state = { // placeholder for current video state
       video: {
         kind: '',
@@ -49,19 +60,22 @@ class App extends React.Component {
       query: 'thats absurd',
       key: window.YOUTUBE_API_KEY
     }, (dataItems) => {
-      console.log(dataItems);
       this.setState({
         video: dataItems[0],
         results: dataItems
       });
     });
+  }
 
+  changeHandler(event) {
+    event.persist();
+    this.delayedCallback(event);
   }
 
   render() {
     return (
       <div>
-        <Nav />        
+        <Nav debouncedSearch={this.changeHandler.bind(this)}/>        
         <div className="col-md-7">
           <VideoPlayer video={this.state.video} />
         </div>

@@ -4,6 +4,13 @@ body {
   background: #f1f1f1;
 }
 
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 40px;
+  display: block;
+  float: left;
+}
+
 .navbar {
   background: #fff;
   margin-bottom: 20px;
@@ -21,7 +28,10 @@ body {
 
 .search-bar .form-control {
   border-radius: 2px;
-  width: 80%
+  width: 80%;
+  display: block;
+  float: left;
+
 }
 .search-bar .btn {
   border-radius: 2px;

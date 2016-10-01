@@ -1,7 +1,10 @@
-var Nav = () => (
+var Nav = (props) => (
   <nav className="navbar">
+    <div className="col-md-2 col-md-offset-0">
+      <h1>recast.ly</h1>
+    </div>
     <div className="col-md-6 col-md-offset-3">
-      <Search />
+      <Search debouncedSearch={props.debouncedSearch.bind(props)} />
     </div>
   </nav>
 );
